@@ -1,27 +1,26 @@
-﻿# Timer (`Timer.py`)
+﻿# Timer
 
-Mixin para ejecutar callbacks por tiempo.
+Logical timer for delayed or repeating callbacks.
 
-## Propiedades
+## File
 
-- `wait_time`
-- `time_left`
-- `is_stopped`
-- `one_shot`
-- `callback`
+`BluePanda/Nodos/Timer.py`
 
-## Metodos
+## Usage
+
+Enable with `@TimerNode`.
+
+## API
 
 - `start(seconds=None)`
 - `stop()`
 - `connect(func)`
 - `update_timer()`
 
-## Comportamiento
+## Fields
 
-- Si `one_shot = True`, el timer se detiene tras disparar.
-- Si `one_shot = False`, se reinicia automaticamente.
-
-## Requisito clave
-
-Llamar `update_timer()` en cada frame para que el contador avance.
+- `wait_time`
+- `time_left`
+- `is_stopped`
+- `one_shot`
+- `callback`

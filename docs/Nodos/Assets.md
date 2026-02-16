@@ -1,22 +1,22 @@
-# Assets (`Assets.py`)
+﻿# Assets (AssetCache)
 
-Gestion de recursos visuales del motor.
+Asset management in `BluePanda/Nodos/Assets.py`.
 
-## Clase
+## Class
 
-- `AssetCache`
+`AssetCache`
 
-## Funcionalidad
+## Features
 
-- Cache de imagenes por ruta y tamano.
-- Carga con `convert()` o `convert_alpha()`.
-- Fallback a textura de error (checkerboard) cuando falla la carga.
-- `clear()` para vaciar cache.
+- In-memory cache by key `(path, size, alpha)`.
+- Safe image loading (`load_image`).
+- Checkerboard fallback texture when loading fails.
 
-## Uso
+## Methods
 
-`instance.assets` ya viene inicializado en el motor.
+- `load_image(path, size=None, use_alpha=True, fallback_color=(255, 0, 255))`
+- `clear()`
 
-```python
-image = instance.assets.load_image("assets/player.png", size=(64, 64), use_alpha=True)
-```
+## Note
+
+This is used automatically by the engine through `instance.assets`.

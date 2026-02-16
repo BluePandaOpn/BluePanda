@@ -1,19 +1,21 @@
-# Math2D (`Math2D.py`)
+﻿# Math2D
 
-Utilidades matematicas para uso interno del motor y scripts de juego.
+Math utility helpers in `BluePanda/Nodos/Math2D.py`.
 
-## Funciones
+## Methods
 
-- `Math2D.clamp(value, minimum, maximum)`
-- `Math2D.lerp(a, b, t)`
-- `Math2D.remap(value, in_min, in_max, out_min, out_max)`
-- `Math2D.distance(a, b)`
-- `Math2D.move_toward(current, target, max_delta)`
-- `Math2D.normalized(vector)`
+- `clamp(value, minimum, maximum)`
+- `lerp(a, b, t)`
+- `remap(value, in_min, in_max, out_min, out_max)`
+- `distance(a, b)`
+- `move_toward(current, target, max_delta)`
+- `normalized(vector)`
 
-## Ejemplo
+## Example
 
 ```python
-speed = Math2D.clamp(speed, 0, 500)
-alpha = Math2D.remap(hp, 0, 100, 0.2, 1.0)
+from BluePanda import Math2D
+
+hp = Math2D.clamp(hp, 0, 100)
+alpha = Math2D.lerp(0, 255, 0.5)
 ```

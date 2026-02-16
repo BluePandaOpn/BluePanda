@@ -1,30 +1,24 @@
-﻿# Label2D (`Label2d.py`)
+﻿# Label2D
 
-Nodo UI para renderizar texto en pantalla.
+On-screen text node for UI or debugging.
+
+## File
+
+`BluePanda/Nodos/Label2d.py`
 
 ## Constructor
 
 ```python
-Label2D(text="Texto", font_size=24, color=(255, 255, 255))
+Label2D(text="Text", font_size=24, color=(255, 255, 255))
 ```
 
-## Propiedades
-
-- `text`
-- `font_size`
-- `font_color`
-- `font_name`
-- `is_ui = True`
-- `pos`
-- `image`
-- `rect`
-
-## Metodos
+## Methods
 
 - `set_text(new_text)`
+- `set_color(color)`
 - `render_text()`
 - `update()`
 
-## Nota
+## Note
 
-Al tener `is_ui = True`, no recibe desplazamiento de camara.
+`is_ui = True`, so camera offset is not applied.

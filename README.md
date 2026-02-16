@@ -1,41 +1,25 @@
 ﻿# BluePanda Engine
 
-Motor de videojuegos 2D en Python, construido sobre Pygame y basado en nodos.
+BluePanda is a 2D game engine in Python built on top of Pygame, using a node-and-component architecture powered by decorators.
 
-## Objetivo
+Current version: `v0.5`
 
-BluePanda busca acelerar prototipos 2D con una API simple:
+## Goals
 
-- Nodos con `update()` automatico.
-- Componentes por decoradores (`@CharacterBody2D`, `@Sprite2D`, etc.).
-- Soporte para UI, camara, colisiones y animacion.
+- Fast 2D prototyping.
+- Simple API (`Nodo2D`, `run_game`, `Config`).
+- Plug-and-play components: movement, collisions, physics, UI, timers, scripts.
 
-## Requisitos
+## Requirements
 
-- Python 3.10+
+- Python `3.10+`
 - `pygame`
-
-Instalacion rapida:
 
 ```bash
 pip install pygame
 ```
 
-## Estructura del proyecto
-
-```text
-BluePanda/
-  main.py
-  Config.py
-  Nodos/
-docs/
-  Proyecto.md
-  UI.md
-  Nodos2D.md
-  Nodos/
-```
-
-## Inicio rapido
+## Quick Start
 
 ```python
 from BluePanda import *
@@ -46,7 +30,7 @@ class MyConfig(Config):
     bg_color = Color2d("#14181e")
     fps = 60
     Windows = WindowSettings()
-    Windows.Name = "Mi juego BluePanda"
+    Windows.Name = "BluePanda Demo"
     Windows.Resizable = True
 
 class Player(Nodo2D):
@@ -70,46 +54,46 @@ camera = Camera2D(target=player)
 run_game(MyConfig)
 ```
 
-`Config` ahora soporta fallback automatico: si no defines `width`, `height`, `bg_color`, `fps` o `Windows`, el motor usa valores por defecto seguros.
+## Structure
 
-## Sistema de color (`Color2d`)
-
-```python
-Color2d("white")
-Color2d("#ffffff")
-Color2d("rgb(255, 255, 255)")
-Color2d((255, 255, 255))
+```text
+BluePanda/
+  main.py
+  Config.py
+  __init__.py
+  Nodos/
+docs/
 ```
 
-## Fisicas y matematicas
+## Documentation
 
-```python
-class Box(Nodo2D):
-    @PhysicsBody2D
-    def physics():
-        mass = 1.0
-        gravity_y = 980
-        restitution = 0.2
-        friction = 0.15
-        is_static = False
+- Project guide: [`docs/Proyecto.md`](docs/Proyecto.md)
+- Runtime API: [`docs/main.md`](docs/main.md)
+- Configuration: [`docs/Config.md`](docs/Config.md)
+- 2D nodes guide: [`docs/Nodos2D.md`](docs/Nodos2D.md)
+- UI guide: [`docs/UI.md`](docs/UI.md)
+- Full node reference: [`docs/Nodos/README.md`](docs/Nodos/README.md)
 
-    @CollisionShape2D
-    def collider():
-        pass
-```
+## Versioning
 
-Utilidades de soporte:
-- `Math2D.clamp`, `Math2D.lerp`, `Math2D.remap`
-- `Math2D.distance`, `Math2D.normalized`
+- Full history: [`CHANGELOG.md`](CHANGELOG.md)
+- Current status: `v0.5` (active development)
 
-## Documentacion completa
+## Licensing
 
-- [Guia del proyecto](docs/Proyecto.md)
-- [Guia UI](docs/UI.md)
-- [Guia Nodos 2D](docs/Nodos2D.md)
-- [Indice completo de Nodos](docs/Nodos/README.md)
+BluePanda is available under dual licensing:
 
-## Estado actual
+1. MIT: [`LICENSE`](LICENSE)
+2. Commercial attribution license: [`LICENSE-COMMERCIAL.md`](LICENSE-COMMERCIAL.md)
 
-- El motor esta en desarrollo activo.
-- La API puede cambiar entre versiones.
+## Community
+
+- Contribution guide: [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- Code of Conduct: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
+- Community channels: [`COMMUNITY.md`](COMMUNITY.md)
+- Security policy: [`SECURITY.md`](SECURITY.md)
+
+## Credits
+
+- Creator: `Pato404`
+- Engine name: `BluePanda`

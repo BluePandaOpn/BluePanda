@@ -1,19 +1,19 @@
-﻿# UI
+﻿# UI in BluePanda
 
-Documentacion de nodos de interfaz de usuario (HUD y elementos en pantalla).
+BluePanda provides a lightweight UI layer with text and panel components.
 
-## Nodos UI
+## Components
 
-- [Label2D](Nodos/Label2d.md)
-- [Button](Nodos/Button.md)
-- [Panel](Nodos/Panel.md)
+- `Label2D`: on-screen text.
+- `Button` (via `@ButtonNode`): mouse-interactive button.
+- `Panel` (via `@PanelNode`): container/background with border and opacity options.
 
-## Reglas generales
+## Render Rules
 
-- Los nodos UI deben usar `is_ui = True` para no moverse con la camara.
-- `Label2D` ya define `is_ui = True` por defecto.
-- `Button` y `Panel` son mixins; deben activarse en nodos compatibles via decoradores.
+- Nodes with `is_ui = True` are rendered without camera offset.
+- World nodes are rendered with `Camera2D` offset.
 
-## Indice completo
+## UI References
 
-- [Nodos (indice total)](Nodos/README.md)
+- Label guide: [`UI/Label2d.md`](UI/Label2d.md)
+- Full UI node API: [`Nodos/Label2d.md`](Nodos/Label2d.md), [`Nodos/Button.md`](Nodos/Button.md), [`Nodos/Panel.md`](Nodos/Panel.md)

@@ -1,28 +1,24 @@
-﻿# AnimatedSprite2D (`AnimatedSprite2D.py`)
+﻿# AnimatedSprite2D
 
-Mixin para animacion por atlas/spritesheet.
+Frame animation using atlas/spritesheet textures.
 
-## Propiedades
+## File
 
-- `frames`
-- `current_frame`
-- `animation_speed`
-- `timer`
-- `playing`
+`BluePanda/Nodos/AnimatedSprite2D.py`
 
-## Metodos
+## Methods
 
 - `load_atlas(path, frame_width, frame_height, total_frames)`
-  - Carga atlas y recorta frames.
-  - Inicializa `self.image` y `self.rect` con el primer frame.
-
 - `update_animation()`
-  - Avanza frames usando `instance.dt`.
+- `play()`
+- `stop()`
 
-- `play()` / `stop()`
-  - Control del estado de reproduccion.
+## Common Config
 
-## Requisitos
+With `@AnimatedSprite`, you can define:
 
-- Debe existir un atlas valido en disco.
-- Llamar `update_animation()` en el loop del nodo para animar continuamente.
+- `Atlas`
+- `frame_w`
+- `frame_h`
+- `total_frames`
+- `speed`

@@ -1,27 +1,15 @@
-# `__init__` (`__init__.py`)
+﻿# Nodos __init__.py
 
-Archivo de exportacion del paquete `BluePanda.Nodos`.
+`BluePanda.Nodos.__init__` exposes a lazy-loaded public API via `__getattr__`.
 
-## Que hace
+## Purpose
 
-- Reexporta las clases principales de nodos/componentes.
-- Define `__all__` para controlar importaciones publicas.
+- Reduce circular import issues.
+- Load modules only when requested.
 
-## Exports
+## Key Exports
 
 - `Nodo2D`
-- `CharacterBody2D`
-- `PhysicsBody2D` (decorador)
-- `CollisionShape2D`
-- `Sprite2D`
-- `Timer`
-- `Area2D`
-- `Button`
-- `Label2D`
-- `Panel`
-- `AnimatedSprite2D`
-- `Script`
-- `Sprite2DComponent`
-- `PhysicsBody2DNode` (clase)
-- `AssetCache`
-- `Math2D`
+- Decorators: `CharacterBody2D`, `PhysicsBody2D`, `CollisionShape2D`, `Sprite2D`
+- Components: `Timer`, `Area2D`, `Button`, `Label2D`, `Panel`, `AnimatedSprite2D`, `Script`
+- Utilities: `AssetCache`, `Math2D`

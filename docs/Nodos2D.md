@@ -1,34 +1,48 @@
-# Nodos 2D
+﻿# Nodos2D
 
-Documentacion base de nodos del mundo 2D.
+Practical guide for gameplay using `Nodo2D` and decorators.
 
-## Nodos principales
+## Base Node
 
-- [Nodo2D](Nodos/Nodo2d.md)
-- [CharacterBody2D](Nodos/CharacterBody2D.md)
-- [PhysicsBody2D](Nodos/PhysicsBody2D.md)
-- [CollisionShape2D](Nodos/CollisionShape2D.md)
-- [Area2D](Nodos/Area2D.md)
-- [AnimatedSprite2D](Nodos/AnimatedSprite2D.md)
-- [Sprite2D](Nodos/Sprite2d.md)
-- [Timer](Nodos/Timer.md)
-- [Script](Nodos/Script.md)
-- [Camera2D](Nodos/Camera2d.md)
+`Nodo2D` is the main class for 2D entities.
 
-## Arquitectura
+- Owns `pos` (`pygame.Vector2`), `image`, and `rect`.
+- Auto-registers into global `instance.nodes`.
+- Executes optional subsystems inside `update()`.
 
-- [Tags (decoradores)](Nodos/Tags.md)
-- [Math2D](Nodos/Math2D.md)
-- [Assets / AssetCache](Nodos/Assets.md)
-- [__init__ de Nodos](Nodos/__init__.md)
+## Available Decorators
 
-## Flujo recomendado
+- `@CharacterBody2D`: input movement.
+- `@PhysicsBody2D`: gravity-based physics and collision solving.
+- `@CollisionShape2D`: collision query helpers.
+- `@Sprite2D`: visual setup and sprite tools.
+- `@AnimatedSprite`: atlas/frame animation.
+- `@Area2D`: sensor area behavior.
+- `@TimerNode`: timer behavior.
+- `@ScriptNode`: external script loading.
 
-1. Crear una clase que herede de `Nodo2D`.
-2. Activar componentes con decoradores.
-3. Instanciar nodos.
-4. Llamar `run_game()`.
+## Example
 
-## Indice completo
+```python
+from BluePanda import *
 
-- [Nodos (indice total)](Nodos/README.md)
+class Player(Nodo2D):
+    @CharacterBody2D
+    def movement():
+        speed = 240
+        input_type = "wasd"
+
+    @CollisionShape2D
+    def collider():
+        pass
+
+    @Sprite2D
+    def look():
+        width = 32
+        height = 48
+        color = "#38bdf8"
+```
+
+## Full Reference
+
+See [`docs/Nodos/README.md`](Nodos/README.md).

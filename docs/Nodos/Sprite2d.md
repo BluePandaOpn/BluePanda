@@ -1,18 +1,21 @@
-﻿# Sprite2D (`Sprite2d.py`)
+﻿# Sprite2D
 
-Mixin de transformaciones visuales para sprites.
+Visual helper methods for sprites.
 
-## Metodos
+## File
+
+`BluePanda/Nodos/Sprite2d.py`
+
+## Methods
 
 - `flip_h(boolean)`
 - `flip_v(boolean)`
 - `set_opacity(alpha)`
 - `set_scale(scale_x, scale_y)`
+- `set_color(color)`
+- `set_texture(path, width=None, height=None)`
+- `tint(color, alpha=100)`
 
-## Detalle
+## Activation
 
-`set_scale` recalcula `self.rect` manteniendo el centro para conservar coherencia visual y de colision.
-
-## Requisitos
-
-- `self.image` y `self.rect` deben existir.
+Enabled via `@Sprite2D`.

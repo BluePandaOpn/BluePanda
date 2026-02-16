@@ -1,20 +1,24 @@
-﻿# CollisionShape2D (`CollisionShape2D.py`)
+﻿# CollisionShape2D
 
-Mixin con utilidades de colision por `rect`.
+Collision detection helper component.
 
-## Metodos
+## File
+
+`BluePanda/Nodos/CollisionShape2D.py`
+
+## Methods
 
 - `is_colliding_with(other_node)`
-  - Retorna `True` si `self.rect` colisiona con `other_node.rect`.
-
 - `get_overlapping_bodies()`
-  - Retorna lista de nodos colisionando con `self`.
-  - Excluye al propio `self`.
-
 - `check_collision(tag_buscada=None)`
-  - Sin filtro: `True` si colisiona con cualquier nodo.
-  - Con filtro: verifica si algun nodo colisionando tiene el atributo `tag_buscada`.
 
-## Requisitos
+## Typical Use
 
-- El nodo debe tener `rect` valido.
+Usually combined with `@CharacterBody2D` or `@PhysicsBody2D`.
+
+```python
+class Wall(Nodo2D):
+    @CollisionShape2D
+    def collider():
+        pass
+```

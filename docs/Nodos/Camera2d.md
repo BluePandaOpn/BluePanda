@@ -1,6 +1,10 @@
-﻿# Camera2D (`Camera2d.py`)
+﻿# Camera2D
 
-Controla el desplazamiento de camara para seguir un objetivo.
+2D camera with smooth target follow.
+
+## File
+
+`BluePanda/Nodos/Camera2d.py`
 
 ## Constructor
 
@@ -8,20 +12,17 @@ Controla el desplazamiento de camara para seguir un objetivo.
 Camera2D(target=None)
 ```
 
-## Propiedades
+## API
+
+- `update_camera()`
+- `apply(rect)`
+
+## Fields
 
 - `target`
 - `offset`
-- `smoothness` (default `0.1`)
+- `smoothness`
 
-## Metodos
+## Note
 
-- `update_camera()`
-  - Calcula offset hacia el centro de pantalla con suavizado.
-
-- `apply(rect)`
-  - Retorna un `rect` desplazado segun la camara.
-
-## Integracion
-
-Al crearla, se asigna automaticamente a `instance.camera`.
+Creating a camera sets `instance.camera`.

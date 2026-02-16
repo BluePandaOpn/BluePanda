@@ -1,30 +1,52 @@
-# Proyecto (Guia completa)
+﻿# BluePanda Project
 
-Esta guia centraliza toda la documentacion del proyecto BluePanda.
+Central guide for architecture, repository structure, and GitHub publishing.
 
-## Modulos principales
+## Goal
 
-- [main.py](main.md)
-- [Config.py](Config.md)
-- [BluePanda __init__.py](BluePanda__init__.md)
-- [Nodos (indice completo)](Nodos/README.md)
+BluePanda provides a simple 2D engine for prototypes and small-to-medium Python game projects.
 
-## Documentacion por seccion
+## Repository Structure
 
-- [UI](UI.md)
-- [Nodos 2D](Nodos2D.md)
+```text
+BluePanda/
+  __init__.py
+  main.py
+  Config.py
+  Nodos/
+docs/
+README.md
+CHANGELOG.md
+LICENSE
+LICENSE-COMMERCIAL.md
+```
 
-## Convencion de uso
+## Basic Usage Flow
 
-1. Definir una clase de `Config` opcional.
-2. Crear entidades heredando de `Nodo2D` o `Label2D`.
-3. Activar componentes con decoradores de `Tags`.
-4. Instanciar nodos.
-5. Ejecutar `run_game(MyConfig)` o `run_game()`.
+1. Define configuration (optional) with `Config`.
+2. Create entities by inheriting from `Nodo2D`.
+3. Enable components with decorators (`@CharacterBody2D`, `@Sprite2D`, etc.).
+4. Instantiate your nodes.
+5. Start with `run_game(MyConfig)`.
 
-## Cambios recientes
+## Related Documentation
 
-- `AssetCache` ahora vive en `BluePanda/Nodos/Assets.py`.
-- Nuevo nodo de fisica `PhysicsBody2D` con soporte de colision via `CollisionShape2D`.
-- Nuevo utilitario `Math2D` para operaciones matematicas del motor.
-- `Color2d` se mantiene como utilidad del motor, no como nodo.
+- [`main.md`](main.md)
+- [`Config.md`](Config.md)
+- [`BluePanda__init__.md`](BluePanda__init__.md)
+- [`Nodos2D.md`](Nodos2D.md)
+- [`UI.md`](UI.md)
+- [`Nodos/README.md`](Nodos/README.md)
+
+## GitHub Release Checklist
+
+Before creating a release:
+
+- Review `CHANGELOG.md`.
+- Verify licenses (`LICENSE`, `LICENSE-COMMERCIAL.md`).
+- Confirm `README.md` and `docs/` match the release version.
+
+## Credits
+
+- Engine: `BluePanda`
+- Lead author: `Pato404`

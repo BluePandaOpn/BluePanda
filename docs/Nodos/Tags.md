@@ -1,45 +1,37 @@
-# Tags (`Tags.py`)
+﻿# Tags (Decorators)
 
-Define decoradores que etiquetan funciones para inyectar componentes en `Nodo2D`.
+File: `BluePanda/Nodos/Tags.py`
 
-## Funcion interna
+## Behavior
 
-- `_extract_vars(func)`: ejecuta el cuerpo de la funcion decorada para capturar variables locales en `_config`.
-- Usa los `globals` reales de la funcion para permitir constantes/imports del modulo usuario.
+Each decorator marks an inner function with:
 
-## Decoradores disponibles
+- `_type`
+- `_config`
 
-- `@CharacterBody2D`
-- `@PhysicsBody2D`
-- `@CollisionShape2D`
-- `@Sprite2D`
-- `@TimerNode`
-- `@Area2D`
-- `@ButtonNode`
-- `@Label`
-- `@PanelNode`
-- `@AnimatedSprite`
-- `@ScriptNode`
+Then `MetaNodo` reads those values to inject mixins and configuration.
 
-## Como funciona
+## Available Decorators
 
-Cada decorador agrega dos atributos a la funcion:
+- `CharacterBody2D`
+- `CollisionShape2D`
+- `Sprite2D`
+- `TimerNode`
+- `Area2D`
+- `ButtonNode`
+- `Label`
+- `PanelNode`
+- `AnimatedSprite`
+- `ScriptNode`
+- `PhysicsBody2D`
 
-- `func._type`: tipo de componente.
-- `func._config`: configuracion capturada.
-
-`MetaNodo` (en `Nodo2d.py`) lee estos datos para construir la clase final.
-
-## Ejemplo
+## Example
 
 ```python
-class Box(Nodo2D):
-    @PhysicsBody2D
-    def physics():
-        mass = 1.0
-        gravity_y = 980
-
-    @CollisionShape2D
-    def collider():
-        pass
+class Enemy(Nodo2D):
+    @Sprite2D
+    def look():
+        width = 32
+        height = 32
+        color = "#ef4444"
 ```

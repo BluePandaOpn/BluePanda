@@ -1,41 +1,62 @@
-# main.py
+﻿# main.py
 
-`BluePanda/main.py` contiene el motor principal y el game loop.
+Reference for BluePanda runtime internals.
 
-## Componentes
+## Core Elements
 
-- Clase `_Engine`
-- Instancia global `instance`
-- Funcion `run_game(config=None)`
+- `_Engine`: main runtime loop and global engine state.
+- `instance`: singleton engine instance.
+- `run_game(config=None)`: entry point for execution.
 
-## Estado principal de `_Engine`
+## _Engine
 
-- `width`, `height`, `screen`
-- `clock`, `dt`, `target_fps`
-- `nodes` (`pygame.sprite.Group`)
-- `_named_nodes` (registro por nombre)
-- `running`, `bg_color`, `camera`
-- `assets` (`AssetCache` en `BluePanda/Nodos/Assets.py`)
+Responsibilities:
 
-## Metodos clave
+- Initialize Pygame.
+- Create window (`screen`) and frame clock (`clock`).
+- Hold all nodes in `nodes` (`pygame.sprite.Group`).
+- Process events (`QUIT`, `VIDEORESIZE`).
+- Update and render nodes.
+- Apply camera offset to world nodes (non-UI).
+
+Key fields:
+
+- `width`, `height`
+- `bg_color`
+- `target_fps`
+- `dt`
+- `nodes`
+- `_named_nodes`
+- `camera`
+- `assets`
+
+Helpful methods:
 
 - `register_node(name, node)`
 - `get_node(name)`
 - `get_nodes_by_class(node_class)`
-- `run()`
 
-## Render y camara
+## run_game(config=None)
 
-En cada frame:
+`run_game`:
 
-1. Procesa eventos.
-2. Ejecuta `self.nodes.update()`.
-3. Si hay camara, llama `update_camera()`.
-4. Dibuja sprites con o sin offset segun `is_ui`.
+1. Loads merged settings via `Config.setup`.
+2. Applies safe values for `width`, `height`, `fps`, and `bg_color`.
+3. Configures window title and `Resizable` mode.
+4. Starts the loop with `instance.run()`.
 
-## `run_game(config=None)`
+## Example
 
-- Carga settings con `Config.setup`.
-- Aplica `width`, `height`, `fps` y `bg_color`.
-- Aplica `Windows.Name` y `Windows.Resizable`.
-- Inicializa pantalla final y arranca `instance.run()`.
+```python
+from BluePanda import Config, WindowSettings, run_game
+
+class MyConfig(Config):
+    width = 1280
+    height = 720
+    fps = 60
+    Windows = WindowSettings()
+    Windows.Name = "My Game"
+    Windows.Resizable = True
+
+run_game(MyConfig)
+```

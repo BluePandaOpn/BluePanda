@@ -1,28 +1,23 @@
-﻿# Script (`Script.py`)
+﻿# Script
 
-Mixin para cargar logica externa desde archivos `.py`.
+Loads external Python logic modules at runtime.
 
-## Metodos
+## File
+
+`BluePanda/Nodos/Script.py`
+
+## API
 
 - `load_script(path)`
-  - Importa dinamicamente el archivo.
-  - Busca clase `Logic` dentro del modulo.
-  - Instancia `Logic(self)` y la guarda en `attached_scripts`.
-  - Si existe `_ready`, lo ejecuta.
-
 - `update_scripts()`
-  - Ejecuta `_update()` de cada script adjunto (si existe).
 
-## Convencion esperada del script externo
+## Expected Script Contract
 
-```python
-class Logic:
-    def __init__(self, owner):
-        self.owner = owner
+External scripts should define `Logic(node)` and may optionally include:
 
-    def _ready(self):
-        pass
+- `_ready()`
+- `_update()`
 
-    def _update(self):
-        pass
-```
+## Activation
+
+Use `@ScriptNode` in your node class.

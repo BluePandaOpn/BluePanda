@@ -1,37 +1,22 @@
-﻿# Button (`Button.py`)
+﻿# Button
 
-Mixin de boton para nodos UI con `rect` e `image`.
+Mouse interaction component for UI buttons.
 
-## Propiedades
+## File
 
-- `is_hovered`
-- `is_pressed`
-- `on_click_callback`
-- `color_normal`
-- `color_hover`
-- `color_pressed`
+`BluePanda/Nodos/Button.py`
 
-## Metodos
+## Activation
+
+`@ButtonNode`
+
+## API
 
 - `connect_click(func)`
 - `update_button()`
 
-## Comportamiento
+## Optional Config
 
-- Detecta hover con `self.rect.collidepoint(mouse_pos)`.
-- Ejecuta callback al presionar click izquierdo dentro del boton.
-- Cambia color visual segun estado (`normal/hover/pressed`).
-
-## Configurable por decorador
-
-```python
-@ButtonNode
-def button_cfg():
-    color_normal = (80, 80, 80)
-    color_hover = (120, 120, 120)
-    color_pressed = (180, 180, 180)
-```
-
-## Requisito
-
-Llamar `update_button()` en cada frame del nodo.
+- `color_normal`
+- `color_hover`
+- `color_pressed`

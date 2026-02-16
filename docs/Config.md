@@ -1,22 +1,21 @@
-# Config.py
+﻿# Config.py
 
-Define la configuracion base del proyecto.
+BluePanda configuration and fallback system.
 
-## Clases
-
-- `WindowSettings`
-- `Config`
+## Classes
 
 ## `WindowSettings`
 
-Campos por defecto:
+Fields:
 
-- `Name = "BluePanda Game"`
-- `Resizable = False`
+- `Name` (default: `"BluePanda Game"`)
+- `Resizable` (default: `False`)
 
 ## `Config`
 
-Incluye defaults integrados del motor:
+Base class for user-defined settings.
+
+Internal defaults:
 
 - `width = 800`
 - `height = 600`
@@ -24,22 +23,24 @@ Incluye defaults integrados del motor:
 - `fps = 60`
 - `Windows = WindowSettings()`
 
-Flujo de uso:
+Main methods:
 
-- Convierte strings como `"1280 px"` a enteros.
-- `with_defaults(user_config)` mezcla config de usuario con defaults sin romper claves faltantes.
-- `setup(user_config_class=None)` retorna el diccionario final que usa `run_game`.
+- `_normalize_px_fields()`: converts strings like `"1200 px"` to `int`.
+- `with_defaults(user_config)`: merges user config with defaults.
+- `setup(user_config_class=None)`: builds final config for `run_game`.
 
-## Ejemplo
+## Example
 
 ```python
-class MyConfig(Config):
-    width = "1280 px"
-    height = "720 px"
-    bg_color = (20, 20, 30)
+from BluePanda import Config, WindowSettings, Color2d
+
+class GameConfig(Config):
+    width = "1366 px"
+    height = "768 px"
+    bg_color = Color2d("#0f172a")
     fps = 75
 
     Windows = WindowSettings()
-    Windows.Name = "Mi Juego"
+    Windows.Name = "BluePanda Example"
     Windows.Resizable = True
 ```

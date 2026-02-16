@@ -1,7 +1,25 @@
-﻿# Label2D
+﻿# Label2D (UI)
 
-La documentacion oficial de este nodo fue movida a:
+`Label2D` renders text on screen.
 
-- [docs/Nodos/Label2d.md](../Nodos/Label2d.md)
+## Constructor
 
-Esta pagina se mantiene por compatibilidad de rutas.
+```python
+Label2D(text="Text", font_size=24, color=(255, 255, 255))
+```
+
+## Methods
+
+- `set_text(new_text)`
+- `set_color(color)`
+- `update()`
+
+## Example
+
+```python
+from BluePanda import Label2D
+
+score = Label2D("Score: 0", font_size=28, color="white")
+score.pos.x = 20
+score.pos.y = 20
+```

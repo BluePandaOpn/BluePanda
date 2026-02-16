@@ -1,29 +1,32 @@
-﻿# CharacterBody2D (`CharacterBody2D.py`)
+﻿# CharacterBody2D
 
-Mixin de movimiento basico por teclado.
+Input-driven movement component.
 
-## Metodos
+## File
 
-- `move_and_slide()`
-  - Lee `speed` (default `200`).
-  - Lee `input_type` (`wasd` o `arrows`).
-  - Normaliza diagonales.
-  - Mueve `self.pos` con `instance.dt`.
+`BluePanda/Nodos/CharacterBody2D.py`
 
-- `update()`
-  - Ejecuta `move_and_slide()`.
-  - Llama `super().update()` para mantener la cadena de actualizacion.
+## Usage
 
-## Requisitos
+Enabled with `@CharacterBody2D` inside a `Nodo2D` class.
 
-- `self.pos` debe existir (lo crea `Nodo2D`).
-- `instance.dt` debe estar actualizado (lo hace el engine loop).
+## Supported Config
 
-## Configuracion comun via decorador
+- `speed` (default: `200`)
+- `input_type` (`"wasd"` or `"arrows"`)
+
+## Behavior
+
+- Reads keyboard direction.
+- Normalizes diagonal movement.
+- Applies displacement using `instance.dt`.
+
+## Example
 
 ```python
-@CharacterBody2D
-def movement():
-    speed = 200
-    input_type = "wasd"
+class Player(Nodo2D):
+    @CharacterBody2D
+    def movement():
+        speed = 260
+        input_type = "wasd"
 ```

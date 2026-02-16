@@ -1,26 +1,20 @@
-﻿# Area2D (`Area2D.py`)
+﻿# Area2D
 
-Mixin sensor para detectar entradas a una zona.
+Sensor component for trigger-style overlap detection.
 
-## Metodos
+## File
+
+`BluePanda/Nodos/Area2D.py`
+
+## Methods
 
 - `on_body_entered(callback)`
-  - Ejecuta `callback(body)` para cada objeto que entra.
-  - Marca internamente cuerpos ya procesados por area.
-
-- `on_body_exited(callback)`
-  - Placeholder (sin implementacion actual).
-
+- `on_body_exited(callback)` (simple/placeholder)
 - `get_overlapping_bodies()`
-  - Retorna cuerpos que estan tocando el area.
-
 - `overlaps(other_node)`
-  - Consulta directa de solapamiento por `rect`.
 
-## Requisitos
+## Use Cases
 
-- `self.rect` debe existir.
-
-## Nota de uso
-
-`on_body_entered` debe llamarse periodicamente (por ejemplo, en `update`) para detectar entradas en tiempo real.
+- pickups
+- checkpoints
+- trigger zones
