@@ -1,6 +1,6 @@
 ﻿# BluePanda Documentation
 
-This folder contains the official documentation for BluePanda (`v0.5`).
+This folder contains the official documentation for BluePanda (`v0.10`).
 
 ## Quick Index
 
@@ -14,4 +14,4 @@ This folder contains the official documentation for BluePanda (`v0.5`).
 
 ## Version
 
-The current docs are aligned with BluePanda `v0.5`.
+The current docs are aligned with BluePanda `v0.10`.

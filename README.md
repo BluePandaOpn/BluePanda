@@ -2,7 +2,7 @@
 
 BluePanda is a 2D game engine in Python built on top of Pygame, using a node-and-component architecture powered by decorators.
 
-Current version: `v0.5`
+Current version: `v0.10`
 
 ## Goals
 
@@ -58,10 +58,15 @@ run_game(MyConfig)
 
 ```text
 BluePanda/
-  main.py
-  Config.py
+  core/
+  scene/
+  resources/
+  utils/
+  nodes/
+  Nodos/         # legacy compatibility wrappers
+  main.py        # legacy compatibility wrapper
+  Config.py      # legacy compatibility wrapper
   __init__.py
-  Nodos/
 docs/
 ```
 
@@ -77,7 +82,8 @@ docs/
 ## Versioning
 
 - Full history: [`CHANGELOG.md`](CHANGELOG.md)
-- Current status: `v0.5` (active development)
+- Current status: `v0.10` (active development)
+- `v0.6` to `v0.10` cover the 5 major update waves completed in this cycle.
 
 ## Licensing
 

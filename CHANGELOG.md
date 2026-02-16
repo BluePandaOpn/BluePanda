@@ -4,6 +4,88 @@ All notable changes to BluePanda are listed in this file.
 
 Format inspired by Keep a Changelog.
 
+## [0.10.0] - 2026-02-16
+
+### Changed
+
+- Reorganized `BluePanda/` into a scalable modular architecture:
+  - `core/`, `scene/`, `resources/`, `utils/`, `nodes/` with category-based subpackages.
+- Preserved backward compatibility through legacy wrapper modules:
+  - `BluePanda/main.py`, `BluePanda/Config.py`, `BluePanda/Input.py`, `BluePanda/SceneTree.py`, `BluePanda/ResourceLoader.py`, and `BluePanda/Nodos/*`.
+- Updated package-level exports to point at the new internal architecture.
+
+### Added
+
+- Internal architecture reference: `BluePanda/ARCHITECTURE.md`.
+
+## [0.9.0] - 2026-02-16
+
+### Added
+
+- `SceneTree` system with:
+  - `add_child()`
+  - `remove_child()`
+  - `get_node(path)` with absolute/relative traversal
+  - global event bus (`connect`, `disconnect`, `emit`)
+- Node-level hierarchy and local signals in `Nodo2D`:
+  - `add_child`, `remove_child`, `set_parent`, `get_children`, `get_node`, `connect`, `emit_signal`.
+- Resource pipeline via `ResourceLoader`:
+  - texture, sound, font, and text loading with caching/fallback behavior.
+- Elaborate showcase example:
+  - `examples/scene_tree_resources_demo.py`
+  - `examples/data/lore.txt`
+
+## [0.8.0] - 2026-02-16
+
+### Added
+
+- Formal `GameLoop` pipeline with deterministic stage order:
+  1. event collection + input update
+  2. engine/window event processing
+  3. recursive node update
+  4. camera update
+  5. recursive draw
+- Engine-level input abstraction in `Input`:
+  - key states, just-pressed/just-released, action bindings, axis API, mouse helpers.
+- Playable sample:
+  - `examples/playable_demo.py`
+
+### Changed
+
+- `CharacterBody2D` now uses BluePanda `Input` instead of direct `pygame.key.get_pressed()`.
+- `_Engine.run()` delegates frame execution to `GameLoop.step()`.
+
+## [0.7.0] - 2026-02-16
+
+### Changed
+
+- Converted project documentation to English across `README.md`, `docs/`, and community files.
+- Added standardized metadata headers to Python source modules with:
+  - version
+  - node/module type
+  - location
+  - purpose
+  - customization notes
+
+## [0.6.0] - 2026-02-16
+
+### Added
+
+- Full documentation refresh aligned to `v0.5` baseline.
+- Open-source/community baseline files:
+  - `CONTRIBUTING.md`
+  - `CODE_OF_CONDUCT.md`
+  - `COMMUNITY.md`
+  - `SECURITY.md`
+  - `NOTICE.md`
+- Dual licensing:
+  - MIT (`LICENSE`)
+  - Commercial attribution (`LICENSE-COMMERCIAL.md`)
+
+### Changed
+
+- Introduced structured version history file (`CHANGELOG.md`) and project-level documentation indexing.
+
 ## [0.5.0] - 2026-02-16
 
 ### Added
@@ -70,5 +152,5 @@ Format inspired by Keep a Changelog.
 
 ## Notes
 
-- Versions `0.1.0` to `0.4.0` are reconstructed from current repository state and internal module evolution.
-- `0.5.0` is the current documented release target.
+- Versions `0.1.0` to `0.4.0` are reconstructed from repository evolution.
+- `0.6.0` to `0.10.0` document the five major update waves completed in the current cycle.

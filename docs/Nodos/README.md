@@ -1,6 +1,6 @@
 ﻿# Nodes - Complete Reference
 
-This section documents all modules under `BluePanda/Nodos` for version `v0.5`.
+This section documents all modules under `BluePanda/Nodos` for version `v0.10`.
 
 ## Index
 

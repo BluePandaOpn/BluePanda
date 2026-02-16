@@ -1,0 +1,3 @@
+﻿BluePanda demo note:
+Collect all stars and avoid touching the red sentinel.
+Press ESC to quit.
