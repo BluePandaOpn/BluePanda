@@ -1,4 +1,4 @@
-﻿# Proyecto (Guia completa)
+# Proyecto (Guia completa)
 
 Esta guia centraliza toda la documentacion del proyecto BluePanda.
 
@@ -22,9 +22,9 @@ Esta guia centraliza toda la documentacion del proyecto BluePanda.
 4. Instanciar nodos.
 5. Ejecutar `run_game(MyConfig)` o `run_game()`.
 
-## Cobertura actual de docs
+## Cambios recientes
 
-- Documentacion individual de todos los archivos `.py` en `BluePanda/Nodos`.
-- Documentacion de modulos principales del motor.
-- Indices por categoria (UI y mundo 2D).
-- Ejemplos basicos de arranque.
+- `AssetCache` ahora vive en `BluePanda/Nodos/Assets.py`.
+- Nuevo nodo de fisica `PhysicsBody2D` con soporte de colision via `CollisionShape2D`.
+- Nuevo utilitario `Math2D` para operaciones matematicas del motor.
+- `Color2d` se mantiene como utilidad del motor, no como nodo.

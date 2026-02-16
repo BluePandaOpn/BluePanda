@@ -1,4 +1,4 @@
-﻿# Config.py
+# Config.py
 
 Define la configuracion base del proyecto.
 
@@ -16,8 +16,19 @@ Campos por defecto:
 
 ## `Config`
 
-- En `__init__`, convierte strings como `"1280 px"` a enteros (`1280`).
-- `setup(user_config_class)` crea y retorna una instancia de config del usuario.
+Incluye defaults integrados del motor:
+
+- `width = 800`
+- `height = 600`
+- `bg_color = (30, 30, 35)`
+- `fps = 60`
+- `Windows = WindowSettings()`
+
+Flujo de uso:
+
+- Convierte strings como `"1280 px"` a enteros.
+- `with_defaults(user_config)` mezcla config de usuario con defaults sin romper claves faltantes.
+- `setup(user_config_class=None)` retorna el diccionario final que usa `run_game`.
 
 ## Ejemplo
 
@@ -26,6 +37,9 @@ class MyConfig(Config):
     width = "1280 px"
     height = "720 px"
     bg_color = (20, 20, 30)
+    fps = 75
+
     Windows = WindowSettings()
     Windows.Name = "Mi Juego"
+    Windows.Resizable = True
 ```

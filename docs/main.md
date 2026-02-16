@@ -1,4 +1,4 @@
-﻿# main.py
+# main.py
 
 `BluePanda/main.py` contiene el motor principal y el game loop.
 
@@ -8,17 +8,16 @@
 - Instancia global `instance`
 - Funcion `run_game(config=None)`
 
-## `_Engine`
-
-### Estado principal
+## Estado principal de `_Engine`
 
 - `width`, `height`, `screen`
-- `clock`, `dt`
+- `clock`, `dt`, `target_fps`
 - `nodes` (`pygame.sprite.Group`)
 - `_named_nodes` (registro por nombre)
 - `running`, `bg_color`, `camera`
+- `assets` (`AssetCache` en `BluePanda/Nodos/Assets.py`)
 
-### Metodos
+## Metodos clave
 
 - `register_node(name, node)`
 - `get_node(name)`
@@ -36,6 +35,7 @@ En cada frame:
 
 ## `run_game(config=None)`
 
-- Carga configuracion de usuario con `Config.setup`.
-- Aplica resolucion, titulo y color de fondo.
+- Carga settings con `Config.setup`.
+- Aplica `width`, `height`, `fps` y `bg_color`.
+- Aplica `Windows.Name` y `Windows.Resizable`.
 - Inicializa pantalla final y arranca `instance.run()`.

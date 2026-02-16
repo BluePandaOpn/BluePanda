@@ -1,21 +1,19 @@
-import inspect
-
 def _extract_vars(func):
     """
     Función interna que extrae las variables definidas dentro 
     de la función decorada (como speed, gravity, etc.)
     """
-    # Ejecutamos la función para obtener su espacio de nombres local
-    # Creamos un diccionario vacío para capturar las variables
     contexto = {}
-    
-    # Obtenemos el código fuente de la función y lo ejecutamos
-    # de forma controlada para capturar las variables
+
+    # Ejecutamos con los globals reales de la funcion para permitir
+    # referencias como Color2d(), constantes o imports del modulo usuario.
     try:
-        exec(func.__code__, {}, contexto)
+        exec(func.__code__, dict(func.__globals__), contexto)
     except Exception as e:
-        print(f"Error al leer la configuración en {func.__name__}: {e}")
-        
+        print(f"Error al leer la configuracion en {func.__name__}: {e}")
+
+    # Limpieza de claves internas inyectadas por exec.
+    contexto.pop("__builtins__", None)
     return contexto
 
 def CharacterBody2D(func):
@@ -75,5 +73,12 @@ def AnimatedSprite(func):
 def ScriptNode(func):
     """Etiqueta para nodos que pueden ejecutar scripts externos"""
     func._type = "Script"
+    func._config = _extract_vars(func)
+    return func
+
+
+def PhysicsBody2D(func):
+    """Etiqueta para nodos con fisica 2D realista (gravedad/masa/colision)."""
+    func._type = "PhysicsBody2D"
     func._config = _extract_vars(func)
     return func

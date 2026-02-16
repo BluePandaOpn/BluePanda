@@ -1,4 +1,4 @@
-﻿# Nodos 2D
+# Nodos 2D
 
 Documentacion base de nodos del mundo 2D.
 
@@ -6,6 +6,7 @@ Documentacion base de nodos del mundo 2D.
 
 - [Nodo2D](Nodos/Nodo2d.md)
 - [CharacterBody2D](Nodos/CharacterBody2D.md)
+- [PhysicsBody2D](Nodos/PhysicsBody2D.md)
 - [CollisionShape2D](Nodos/CollisionShape2D.md)
 - [Area2D](Nodos/Area2D.md)
 - [AnimatedSprite2D](Nodos/AnimatedSprite2D.md)
@@ -17,6 +18,8 @@ Documentacion base de nodos del mundo 2D.
 ## Arquitectura
 
 - [Tags (decoradores)](Nodos/Tags.md)
+- [Math2D](Nodos/Math2D.md)
+- [Assets / AssetCache](Nodos/Assets.md)
 - [__init__ de Nodos](Nodos/__init__.md)
 
 ## Flujo recomendado

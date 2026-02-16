@@ -43,9 +43,11 @@ from BluePanda import *
 class MyConfig(Config):
     width = "1280 px"
     height = "720 px"
-    bg_color = (20, 24, 30)
+    bg_color = Color2d("#14181e")
+    fps = 60
     Windows = WindowSettings()
     Windows.Name = "Mi juego BluePanda"
+    Windows.Resizable = True
 
 class Player(Nodo2D):
     @CharacterBody2D
@@ -67,6 +69,38 @@ camera = Camera2D(target=player)
 
 run_game(MyConfig)
 ```
+
+`Config` ahora soporta fallback automatico: si no defines `width`, `height`, `bg_color`, `fps` o `Windows`, el motor usa valores por defecto seguros.
+
+## Sistema de color (`Color2d`)
+
+```python
+Color2d("white")
+Color2d("#ffffff")
+Color2d("rgb(255, 255, 255)")
+Color2d((255, 255, 255))
+```
+
+## Fisicas y matematicas
+
+```python
+class Box(Nodo2D):
+    @PhysicsBody2D
+    def physics():
+        mass = 1.0
+        gravity_y = 980
+        restitution = 0.2
+        friction = 0.15
+        is_static = False
+
+    @CollisionShape2D
+    def collider():
+        pass
+```
+
+Utilidades de soporte:
+- `Math2D.clamp`, `Math2D.lerp`, `Math2D.remap`
+- `Math2D.distance`, `Math2D.normalized`
 
 ## Documentacion completa
 

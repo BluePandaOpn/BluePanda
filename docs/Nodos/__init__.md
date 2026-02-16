@@ -1,4 +1,4 @@
-﻿# `__init__` (`__init__.py`)
+# `__init__` (`__init__.py`)
 
 Archivo de exportacion del paquete `BluePanda.Nodos`.
 
@@ -11,6 +11,7 @@ Archivo de exportacion del paquete `BluePanda.Nodos`.
 
 - `Nodo2D`
 - `CharacterBody2D`
+- `PhysicsBody2D` (decorador)
 - `CollisionShape2D`
 - `Sprite2D`
 - `Timer`
@@ -20,3 +21,7 @@ Archivo de exportacion del paquete `BluePanda.Nodos`.
 - `Panel`
 - `AnimatedSprite2D`
 - `Script`
+- `Sprite2DComponent`
+- `PhysicsBody2DNode` (clase)
+- `AssetCache`
+- `Math2D`
