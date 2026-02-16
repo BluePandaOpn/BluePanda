@@ -1,3 +1,16 @@
+"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Decorator Metadata Module
+- Location: BluePanda/Nodos/Tags.py
+- Purpose: Reads decorator config blocks and tags nodes for mixin injection.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
+
 def _extract_vars(func):
     """
     Función interna que extrae las variables definidas dentro 

@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Utility Node Module
+- Location: BluePanda/Nodos/Color2d.py
+- Purpose: Normalizes color inputs and provides helper color operations.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 import random
 import pygame
 

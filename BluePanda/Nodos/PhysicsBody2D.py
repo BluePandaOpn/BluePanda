@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Physics Node Component
+- Location: BluePanda/Nodos/PhysicsBody2D.py
+- Purpose: Adds gravity, velocity, forces, damping, and collision resolution.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 import pygame
 from BluePanda.main import instance
 from .Math2D import Math2D

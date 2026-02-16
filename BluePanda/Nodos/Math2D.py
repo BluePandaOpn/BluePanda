@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Utility Node Module
+- Location: BluePanda/Nodos/Math2D.py
+- Purpose: Provides reusable math helpers for movement, interpolation, and vectors.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 import math
 import pygame
 

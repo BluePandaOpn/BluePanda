@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Node API Registry Module
+- Location: BluePanda/Nodos/__init__.py
+- Purpose: Provides lazy-loading exports for node-related classes and decorators.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 """API publica de BluePanda.Nodos con carga lazy para evitar ciclos de import."""
 
 from importlib import import_module

@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: UI Node Component
+- Location: BluePanda/Nodos/Button.py
+- Purpose: Implements clickable button behavior with hover/press visual states.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 import pygame
 from .Color2d import Color2d
 

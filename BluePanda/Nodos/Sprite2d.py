@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Visual Node Component
+- Location: BluePanda/Nodos/Sprite2d.py
+- Purpose: Adds runtime sprite manipulation helpers (flip, scale, tint, texture).
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 import pygame
 from .Color2d import Color2d
 from BluePanda.main import instance

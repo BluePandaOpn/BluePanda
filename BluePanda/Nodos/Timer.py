@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Timing Node Component
+- Location: BluePanda/Nodos/Timer.py
+- Purpose: Schedules delayed or repeating callbacks tied to engine delta-time.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 from BluePanda.main import instance
 
 

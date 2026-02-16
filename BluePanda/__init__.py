@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Package API Module
+- Location: BluePanda/__init__.py
+- Purpose: Exports the public BluePanda API used by game projects.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 # 1. Importamos la función para arrancar y la instancia desde main.py
 from .main import run_game, instance
 from .Config import Config, WindowSettings

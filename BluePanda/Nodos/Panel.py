@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: UI Node Component
+- Location: BluePanda/Nodos/Panel.py
+- Purpose: Provides panel styling features like border radius, border, and opacity.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 import pygame
 from .Color2d import Color2d
 

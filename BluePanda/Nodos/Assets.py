@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Asset Node Module
+- Location: BluePanda/Nodos/Assets.py
+- Purpose: Loads and caches textures with safe fallback behavior.
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 import os
 import pygame
 from .Color2d import Color2d

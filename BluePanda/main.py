@@ -1,3 +1,15 @@
+﻿"""
+BluePanda Metadata
+- Version: v0.5
+- Node Type: Core Runtime Module
+- Location: BluePanda/main.py
+- Purpose: Runs the engine loop, event processing, rendering, and game startup via run_game().
+
+Customization Notes:
+- This file is intended to be edited by engine users.
+- Keep public method names stable when possible to avoid API breakage.
+- If you change behavior, also update the matching docs in /docs.
+"""
 import pygame
 import sys
 from .Config import Config
