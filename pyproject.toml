@@ -4,7 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "BluePanda"
-version = "0.10.0"
+version = "0.16.6"
+url = "https://github.com/BluePandaOpn/BluePanda.git"
+
 description = "BluePanda 2D engine built on top of pygame."
 readme = "README.md"
 requires-python = ">=3.10"

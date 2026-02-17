@@ -2,7 +2,7 @@
 
 BluePanda is a 2D game engine in Python built on top of Pygame, using a node-and-component architecture powered by decorators.
 
-Current version: `v0.10`
+Current version: `v0.16.6`
 
 ## Goals
 
