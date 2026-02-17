@@ -24,7 +24,7 @@ pip install -e .
 
 ## Patrones recomendados para prompts de IA
 
-- "Crea un nodo `Player` con `@CharacterBody2D` y color `Color2d('#22D3EE')`."
+- "Crea un nodo `Player` con `@CharacterBody2D` y color `Color2d('#2fc9e0')`."
 - "Agrega un `Hud` que escuche `instance.tree.connect('evento', callback)`."
 - "Termina el juego con ESC usando `Input.is_just_pressed('escape')`."
 - "Mantén el jugador dentro de `WORLD_W` y `WORLD_H`."

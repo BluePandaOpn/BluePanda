@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: BluePanda
-Version: 0.10.0
+Version: 0.12.0
 Summary: BluePanda 2D engine built on top of pygame.
 Author: Pato404
 License: ﻿MIT License
@@ -44,7 +44,7 @@ Dynamic: license-file
 
 BluePanda is a 2D game engine in Python built on top of Pygame, using a node-and-component architecture powered by decorators.
 
-Current version: `v0.10`
+Current version: `v0.16.6`
 
 ## Goals
 
@@ -52,6 +52,8 @@ Current version: `v0.10`
 - Simple API (`Nodo2D`, `run_game`, `Config`).
 - Plug-and-play components: movement, collisions, physics, UI, timers, scripts.
 - Advanced runtime systems: SceneTree groups, pause modes, time scaling, gameplay mixins.
+- New high-level systems: scheduler, tweening, finite state machine, and particle emitter.
+- Declarative node APIs: `@OnReady`, `@OnEvent`, `@OnSignal`, and `component(...)`.
 
 ## Requirements
 
@@ -131,6 +133,7 @@ docs/
 - Full node reference: [`docs/Nodos/README.md`](docs/Nodos/README.md)
 - Basic projects (learning path): [`examples/BASICS.md`](examples/BASICS.md)
 - Advanced projects: [`examples/ADVANCED.md`](examples/ADVANCED.md)
+- 12 progressive versions: [`examples/versions/README.md`](examples/versions/README.md)
 
 ## Versioning
 

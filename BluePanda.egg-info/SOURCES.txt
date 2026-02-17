@@ -27,10 +27,12 @@ BluePanda/Nodos/Label2d.py
 BluePanda/Nodos/Math2D.py
 BluePanda/Nodos/Nodo2d.py
 BluePanda/Nodos/Panel.py
+BluePanda/Nodos/ParticleEmitter2D.py
 BluePanda/Nodos/Patrol2D.py
 BluePanda/Nodos/PhysicsBody2D.py
 BluePanda/Nodos/Script.py
 BluePanda/Nodos/Sprite2d.py
+BluePanda/Nodos/StateMachine.py
 BluePanda/Nodos/Tags.py
 BluePanda/Nodos/Timer.py
 BluePanda/Nodos/__init__.py
@@ -43,9 +45,12 @@ BluePanda/nodes/base/__init__.py
 BluePanda/nodes/base/node2d.py
 BluePanda/nodes/decorators/__init__.py
 BluePanda/nodes/decorators/tags.py
+BluePanda/nodes/effects/__init__.py
+BluePanda/nodes/effects/particle_emitter_2d.py
 BluePanda/nodes/gameplay/__init__.py
 BluePanda/nodes/gameplay/health.py
 BluePanda/nodes/gameplay/patrol2d.py
+BluePanda/nodes/gameplay/state_machine.py
 BluePanda/nodes/physics/__init__.py
 BluePanda/nodes/physics/area2d.py
 BluePanda/nodes/physics/character_body_2d.py
