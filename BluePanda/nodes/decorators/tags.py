@@ -23,7 +23,9 @@ def _extract_vars(func):
     try:
         exec(func.__code__, dict(func.__globals__), contexto)
     except Exception as e:
-        print(f"Error al leer la configuracion en {func.__name__}: {e}")
+        raise RuntimeError(
+            f"No se pudo leer la configuracion del decorador '{func.__name__}': {e}"
+        ) from e
 
     # Limpieza de claves internas inyectadas por exec.
     contexto.pop("__builtins__", None)
@@ -93,6 +95,20 @@ def ScriptNode(func):
 def PhysicsBody2D(func):
     """Etiqueta para nodos con fisica 2D realista (gravedad/masa/colision)."""
     func._type = "PhysicsBody2D"
+    func._config = _extract_vars(func)
+    return func
+
+
+def HealthNode(func):
+    """Etiqueta para nodos con vida y dano/curacion."""
+    func._type = "HealthNode"
+    func._config = _extract_vars(func)
+    return func
+
+
+def PatrolNode2D(func):
+    """Etiqueta para nodos que patrullan automaticamente."""
+    func._type = "Patrol2D"
     func._config = _extract_vars(func)
     return func
 

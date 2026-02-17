@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "BluePanda"
+version = "0.10.0"
+description = "BluePanda 2D engine built on top of pygame."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Pato404" }
+]
+dependencies = [
+  "pygame>=2.5"
+]
+keywords = ["game", "engine", "2d", "pygame", "bluepanda"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Games/Entertainment",
+  "Topic :: Software Development :: Libraries",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["BluePanda*"]

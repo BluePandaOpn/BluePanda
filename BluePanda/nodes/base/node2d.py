@@ -22,8 +22,11 @@ from ..ui.button import Button as Button_Logic
 from ..ui.label2d import Label2D as Label_Logic
 from ..ui.panel import Panel as Panel_Logic
 from ..render.animated_sprite2d import AnimatedSprite2D as Anim_Logic
+from ..render.sprite2d import Sprite2D as Sprite_Logic
 from ..scripting.script import Script as Script_Logic
 from ..physics.physics_body_2d import PhysicsBody2D as Physics_Logic
+from ..gameplay.health import Health as Health_Logic
+from ..gameplay.patrol2d import Patrol2D as Patrol_Logic
 
 
 class MetaNodo(type):
@@ -64,6 +67,9 @@ class MetaNodo(type):
                 elif tipo == "AnimatedSprite":
                     if Anim_Logic not in list_bases:
                         list_bases.insert(0, Anim_Logic)
+                elif tipo == "Sprite2D":
+                    if Sprite_Logic not in list_bases:
+                        list_bases.insert(0, Sprite_Logic)
                 elif tipo == "Script":
                     if Script_Logic not in list_bases:
                         list_bases.insert(0, Script_Logic)
@@ -72,6 +78,12 @@ class MetaNodo(type):
                         list_bases.insert(0, Physics_Logic)
                     if CS_Logic not in list_bases:
                         list_bases.insert(0, CS_Logic)
+                elif tipo == "HealthNode":
+                    if Health_Logic not in list_bases:
+                        list_bases.insert(0, Health_Logic)
+                elif tipo == "Patrol2D":
+                    if Patrol_Logic not in list_bases:
+                        list_bases.insert(0, Patrol_Logic)
 
         new_class = super().__new__(cls, name, tuple(list_bases), dct)
         new_class._INTERNAL_CFG_TEMPLATE = final_config
@@ -99,6 +111,8 @@ class Nodo2D(pygame.sprite.Sprite, metaclass=MetaNodo):
         self.children = []
         self.active = True
         self.visible = True
+        self.process_mode = str(cfg.get("process_mode", "pausable")).lower()
+        self._groups = set()
         self.name = name if name is not None else self.__class__.__name__
         self.z_index = int(cfg.get("z_index", 0))
         self._bp_order = instance.allocate_draw_order()
@@ -172,8 +186,54 @@ class Nodo2D(pygame.sprite.Sprite, metaclass=MetaNodo):
         for callback in list(self._signals.get(str(signal_name), [])):
             callback(*args, **kwargs)
 
+    def can_process(self):
+        """Evaluate if this node should run update in the current frame."""
+        mode = str(getattr(self, "process_mode", "pausable")).lower()
+        if mode == "disabled":
+            return False
+        if mode == "always":
+            return True
+        return not bool(getattr(instance, "paused", False))
+
+    def set_color(self, color):
+        """Fallback color setter available on every node with an image."""
+        if hasattr(self, "image"):
+            self.image.fill(Color2d.coerce(color, (255, 255, 255)))
+
+    def set_size(self, width, height):
+        """Resize node image while preserving top-left world position."""
+        if not hasattr(self, "image") or not hasattr(self, "rect"):
+            return
+        w = max(1, int(width))
+        h = max(1, int(height))
+        pos = self.rect.topleft
+        self.image = pygame.transform.scale(self.image, (w, h))
+        self.rect = self.image.get_rect(topleft=pos)
+
+    def set_position(self, x, y):
+        """Set position and sync rect in one call."""
+        self.pos.x = float(x)
+        self.pos.y = float(y)
+        if hasattr(self, "rect"):
+            self.rect.topleft = (self.pos.x, self.pos.y)
+
+    def queue_free(self):
+        """Godot-like convenience alias to safely remove this node."""
+        self.kill()
+
+    def add_to_group(self, group_name):
+        return instance.tree.add_to_group(self, group_name)
+
+    def remove_from_group(self, group_name):
+        return instance.tree.remove_from_group(self, group_name)
+
+    def is_in_group(self, group_name):
+        return instance.tree.is_in_group(self, group_name)
+
     def kill(self):
         """Keep hierarchy references consistent when node is removed."""
+        for group_name in list(self._groups):
+            instance.tree.remove_from_group(self, group_name)
         if self.parent is not None:
             instance.tree.remove_child(self)
         for child in list(self.children):

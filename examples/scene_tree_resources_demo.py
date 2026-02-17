@@ -11,6 +11,7 @@ from BluePanda import (
     Camera2D,
     CharacterBody2D,
     CollisionShape2D,
+    Color2d,
     Config,
     Input,
     Nodo2D,
@@ -24,13 +25,15 @@ from BluePanda import (
 WORLD_W = 2200
 WORLD_H = 1400
 STAR_COUNT = 16
+PLAYER_COLOR = Color2d("#46AFFF")
+SENTINEL_COLOR = Color2d("#E65050")
 
 
 class DemoConfig(Config):
     width = 1280
     height = 720
     fps = 60
-    bg_color = (18, 24, 35)
+    bg_color = Color2d("#121823").to_rgb()
 
     Windows = WindowSettings()
     Windows.Name = "BluePanda SceneTree + Resources Demo"
@@ -63,7 +66,11 @@ class Player(Nodo2D):
     def look():
         width = 42
         height = 42
-        color = (70, 175, 255)
+        color = PLAYER_COLOR.to_rgb()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.image.fill(PLAYER_COLOR.to_rgb())
 
     def update(self):
         prev = self.pos.copy()
@@ -93,7 +100,7 @@ class Star(Nodo2D):
     def look():
         width = 22
         height = 22
-        color = (255, 220, 90)
+        color = Color2d("#FFDC5A").to_rgb()
 
     def update(self):
         super().update()
@@ -115,7 +122,11 @@ class Sentinel(Nodo2D):
     def look():
         width = 64
         height = 64
-        color = (230, 80, 80)
+        color = SENTINEL_COLOR.to_rgb()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.image.fill(SENTINEL_COLOR.to_rgb())
 
     def update(self):
         # Simple patrol logic.
@@ -138,7 +149,7 @@ class Wall(Nodo2D):
 
     @Sprite2D
     def look():
-        color = (45, 65, 100)
+        color = Color2d("#2D4164").to_rgb()
 
 
 class Hud(Nodo2D):
@@ -206,8 +217,9 @@ class EngineControls(Nodo2D):
         super().update()
 
 
-def make_wall(parent, x, y, w, h, name=None):
+def make_wall(parent, x, y, w, h, name=None, color="#2D4164"):
     wall = Wall(x, y, w, h, name=name)
+    wall.image.fill(Color2d(color).to_rgb())
     parent.add_child(wall)
     return wall
 
@@ -234,14 +246,14 @@ def build_scene():
     level.add_child(stars)
     level.add_child(actors)
 
-    make_wall(walls, 0, 0, WORLD_W, 36, "north")
-    make_wall(walls, 0, WORLD_H - 36, WORLD_W, 36, "south")
-    make_wall(walls, 0, 0, 36, WORLD_H, "west")
-    make_wall(walls, WORLD_W - 36, 0, 36, WORLD_H, "east")
+    make_wall(walls, 0, 0, WORLD_W, 36, "north", "#355C7D")
+    make_wall(walls, 0, WORLD_H - 36, WORLD_W, 36, "south", "#6C5B7B")
+    make_wall(walls, 0, 0, 36, WORLD_H, "west", "#C06C84")
+    make_wall(walls, WORLD_W - 36, 0, 36, WORLD_H, "east", "#F67280")
 
-    make_wall(walls, 500, 300, 600, 32)
-    make_wall(walls, 960, 580, 32, 480)
-    make_wall(walls, 1300, 920, 500, 32)
+    make_wall(walls, 500, 300, 600, 32, color="#F8B195")
+    make_wall(walls, 960, 580, 32, 480, color="#99B898")
+    make_wall(walls, 1300, 920, 500, 32, color="#A8E6CF")
 
     player = Player(180, 150, name="player")
     actors.add_child(player)

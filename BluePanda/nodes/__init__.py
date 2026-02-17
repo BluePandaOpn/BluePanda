@@ -11,9 +11,12 @@ from .decorators.tags import (
     AnimatedSprite,
     ScriptNode,
     PhysicsBody2D,
+    HealthNode,
+    PatrolNode2D,
 )
 from .render.camera2d import Camera2D
 from .ui.label2d import Label2D
+from .gameplay import Health, Patrol2D
 
 __all__ = [
     "Nodo2D",
@@ -28,6 +31,10 @@ __all__ = [
     "AnimatedSprite",
     "ScriptNode",
     "PhysicsBody2D",
+    "HealthNode",
+    "PatrolNode2D",
     "Camera2D",
     "Label2D",
+    "Health",
+    "Patrol2D",
 ]

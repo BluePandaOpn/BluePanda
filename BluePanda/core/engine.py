@@ -62,6 +62,8 @@ class GameLoop:
     def _update_node_recursive(self, node):
         if not getattr(node, "active", True):
             return
+        if hasattr(node, "can_process") and not node.can_process():
+            return
 
         if hasattr(node, "update"):
             node.update()
@@ -87,7 +89,8 @@ class GameLoop:
             self._draw_node_recursive(child)
 
     def step(self):
-        self.engine.dt = self.engine.clock.tick(self.engine.target_fps) / 1000.0
+        raw_dt = self.engine.clock.tick(self.engine.target_fps) / 1000.0
+        self.engine.dt = raw_dt * self.engine.time_scale
         events = pygame.event.get()
         Input.update(events)
         self._process_events(events)
@@ -126,6 +129,8 @@ class _Engine:
         self._draw_order_counter = 0
 
         self.running = True
+        self.paused = False
+        self.time_scale = 1.0
         self.camera = None
         self.assets = AssetCache()
         self.resources = ResourceLoader()
@@ -167,6 +172,22 @@ class _Engine:
 
         pygame.quit()
         sys.exit()
+
+    def pause(self):
+        self.paused = True
+
+    def resume(self):
+        self.paused = False
+
+    def toggle_pause(self):
+        self.paused = not self.paused
+
+    def set_time_scale(self, value):
+        try:
+            parsed = float(value)
+        except Exception:
+            return
+        self.time_scale = max(0.0, parsed)
 
 
 instance = _Engine()

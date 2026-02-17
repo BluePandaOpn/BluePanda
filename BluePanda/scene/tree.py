@@ -33,6 +33,7 @@ class SceneTree:
         self.engine = engine
         self.root = _RootNode()
         self._events = {}
+        self._groups = {}
 
     def _unique_sibling_name(self, parent, desired):
         existing = {getattr(child, "name", None) for child in parent.children}
@@ -62,6 +63,8 @@ class SceneTree:
 
         child.parent = target_parent
         target_parent.children.append(child)
+        for group_name in list(getattr(child, "_groups", set())):
+            self.add_to_group(child, group_name)
         return child
 
     def remove_child(self, child):
@@ -71,6 +74,8 @@ class SceneTree:
             return
         if hasattr(parent, "children") and child in parent.children:
             parent.children.remove(child)
+        for group_name in list(getattr(child, "_groups", set())):
+            self.remove_from_group(child, group_name)
         child.parent = None
 
     def get_node(self, path, start=None):
@@ -127,4 +132,39 @@ class SceneTree:
         """Emit a global scene event."""
         for callback in list(self._events.get(str(event_name), [])):
             callback(*args, **kwargs)
+
+    def add_to_group(self, node, group_name):
+        group = str(group_name).strip()
+        if not group:
+            return node
+        members = self._groups.setdefault(group, set())
+        members.add(node)
+        if hasattr(node, "_groups"):
+            node._groups.add(group)
+        return node
+
+    def remove_from_group(self, node, group_name):
+        group = str(group_name).strip()
+        members = self._groups.get(group)
+        if members is not None:
+            members.discard(node)
+            if not members:
+                self._groups.pop(group, None)
+        if hasattr(node, "_groups"):
+            node._groups.discard(group)
+        return node
+
+    def is_in_group(self, node, group_name):
+        group = str(group_name).strip()
+        return node in self._groups.get(group, set())
+
+    def get_nodes_in_group(self, group_name):
+        group = str(group_name).strip()
+        return list(self._groups.get(group, set()))
+
+    def call_group(self, group_name, method_name, *args, **kwargs):
+        for node in list(self.get_nodes_in_group(group_name)):
+            method = getattr(node, method_name, None)
+            if callable(method):
+                method(*args, **kwargs)
 

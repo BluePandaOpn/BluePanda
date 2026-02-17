@@ -11,5 +11,6 @@ from ..nodes.decorators.tags import (
     AnimatedSprite,
     ScriptNode,
     PhysicsBody2D,
+    HealthNode,
+    PatrolNode2D,
 )
-

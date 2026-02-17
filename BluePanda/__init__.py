@@ -19,6 +19,10 @@ from .nodes import (
     PhysicsBody2D,
     Camera2D,
     Label2D,
+    HealthNode,
+    PatrolNode2D,
+    Health,
+    Patrol2D,
 )
 
 __all__ = [
@@ -47,4 +51,8 @@ __all__ = [
     "Color2d",
     "Math2D",
     "ScriptNode",
+    "HealthNode",
+    "PatrolNode2D",
+    "Health",
+    "Patrol2D",
 ]
