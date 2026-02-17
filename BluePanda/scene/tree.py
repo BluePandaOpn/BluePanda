@@ -33,6 +33,8 @@ class SceneTree:
         self.engine = engine
         self.root = _RootNode()
         self._events = {}
+        self._event_once = {}
+        self._deferred_events = []
         self._groups = {}
 
     def _unique_sibling_name(self, parent, desired):
@@ -123,15 +125,44 @@ class SceneTree:
         listeners = self._events.setdefault(str(event_name), [])
         listeners.append(callback)
 
+    def connect_once(self, event_name, callback):
+        """Connect callback and auto-disconnect after first emit."""
+        key = str(event_name)
+        self.connect(key, callback)
+        once_set = self._event_once.setdefault(key, set())
+        once_set.add(callback)
+
     def disconnect(self, event_name, callback):
         listeners = self._events.get(str(event_name), [])
         if callback in listeners:
             listeners.remove(callback)
+        once_set = self._event_once.get(str(event_name), set())
+        if callback in once_set:
+            once_set.remove(callback)
 
     def emit(self, event_name, *args, **kwargs):
         """Emit a global scene event."""
-        for callback in list(self._events.get(str(event_name), [])):
+        key = str(event_name)
+        for callback in list(self._events.get(key, [])):
             callback(*args, **kwargs)
+            if callback in self._event_once.get(key, set()):
+                self.disconnect(key, callback)
+
+    def emit_deferred(self, event_name, *args, **kwargs):
+        self._deferred_events.append((str(event_name), args, kwargs))
+
+    def _flush_deferred_events(self):
+        if not self._deferred_events:
+            return
+        events = list(self._deferred_events)
+        self._deferred_events.clear()
+        for event_name, args, kwargs in events:
+            self.emit(event_name, *args, **kwargs)
+
+    def clear_event(self, event_name):
+        key = str(event_name)
+        self._events.pop(key, None)
+        self._event_once.pop(key, None)
 
     def add_to_group(self, node, group_name):
         group = str(group_name).strip()

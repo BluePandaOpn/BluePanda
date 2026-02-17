@@ -10,6 +10,8 @@ Current version: `v0.16.6`
 - Simple API (`Nodo2D`, `run_game`, `Config`).
 - Plug-and-play components: movement, collisions, physics, UI, timers, scripts.
 - Advanced runtime systems: SceneTree groups, pause modes, time scaling, gameplay mixins.
+- New high-level systems: scheduler, tweening, finite state machine, and particle emitter.
+- Declarative node APIs: `@OnReady`, `@OnEvent`, `@OnSignal`, and `component(...)`.
 
 ## Requirements
 

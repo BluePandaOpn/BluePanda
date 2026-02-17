@@ -1,5 +1,6 @@
 ﻿from .base.node2d import Nodo2D
 from .decorators.tags import (
+    component,
     CharacterBody2D,
     CollisionShape2D,
     Sprite2D,
@@ -13,13 +14,20 @@ from .decorators.tags import (
     PhysicsBody2D,
     HealthNode,
     PatrolNode2D,
+    ParticleEmitterNode2D,
+    StateMachineNode,
+    OnReady,
+    OnEvent,
+    OnSignal,
 )
 from .render.camera2d import Camera2D
 from .ui.label2d import Label2D
-from .gameplay import Health, Patrol2D
+from .gameplay import Health, Patrol2D, StateMachine
+from .effects import ParticleEmitter2D
 
 __all__ = [
     "Nodo2D",
+    "component",
     "CharacterBody2D",
     "CollisionShape2D",
     "Sprite2D",
@@ -33,8 +41,15 @@ __all__ = [
     "PhysicsBody2D",
     "HealthNode",
     "PatrolNode2D",
+    "ParticleEmitterNode2D",
+    "StateMachineNode",
+    "OnReady",
+    "OnEvent",
+    "OnSignal",
     "Camera2D",
     "Label2D",
     "Health",
     "Patrol2D",
+    "StateMachine",
+    "ParticleEmitter2D",
 ]

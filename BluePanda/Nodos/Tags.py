@@ -1,5 +1,6 @@
 """Compatibility wrapper for legacy import path: BluePanda/Nodos/Tags.py"""
 from ..nodes.decorators.tags import (
+    component,
     CharacterBody2D,
     CollisionShape2D,
     Sprite2D,
@@ -13,4 +14,9 @@ from ..nodes.decorators.tags import (
     PhysicsBody2D,
     HealthNode,
     PatrolNode2D,
+    ParticleEmitterNode2D,
+    StateMachineNode,
+    OnReady,
+    OnEvent,
+    OnSignal,
 )

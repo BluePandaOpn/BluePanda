@@ -1,5 +1,6 @@
 ﻿
 from .tags import (
+    component,
     CharacterBody2D,
     CollisionShape2D,
     Sprite2D,
@@ -13,9 +14,15 @@ from .tags import (
     PhysicsBody2D,
     HealthNode,
     PatrolNode2D,
+    ParticleEmitterNode2D,
+    StateMachineNode,
+    OnReady,
+    OnEvent,
+    OnSignal,
 )
 
 __all__ = [
+    "component",
     "CharacterBody2D",
     "CollisionShape2D",
     "Sprite2D",
@@ -29,4 +36,9 @@ __all__ = [
     "PhysicsBody2D",
     "HealthNode",
     "PatrolNode2D",
+    "ParticleEmitterNode2D",
+    "StateMachineNode",
+    "OnReady",
+    "OnEvent",
+    "OnSignal",
 ]

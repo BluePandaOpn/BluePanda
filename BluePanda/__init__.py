@@ -6,6 +6,7 @@ from .resources import ResourceLoader, AssetCache
 from .utils import Color2d, Math2D
 from .nodes import (
     Nodo2D,
+    component,
     CharacterBody2D,
     CollisionShape2D,
     Sprite2D,
@@ -21,8 +22,15 @@ from .nodes import (
     Label2D,
     HealthNode,
     PatrolNode2D,
+    ParticleEmitterNode2D,
+    StateMachineNode,
+    OnReady,
+    OnEvent,
+    OnSignal,
     Health,
     Patrol2D,
+    StateMachine,
+    ParticleEmitter2D,
 )
 
 __all__ = [
@@ -34,6 +42,7 @@ __all__ = [
     "ResourceLoader",
     "AssetCache",
     "Nodo2D",
+    "component",
     "CharacterBody2D",
     "PhysicsBody2D",
     "CollisionShape2D",
@@ -53,6 +62,13 @@ __all__ = [
     "ScriptNode",
     "HealthNode",
     "PatrolNode2D",
+    "ParticleEmitterNode2D",
+    "StateMachineNode",
+    "OnReady",
+    "OnEvent",
+    "OnSignal",
     "Health",
     "Patrol2D",
+    "StateMachine",
+    "ParticleEmitter2D",
 ]

@@ -27,6 +27,8 @@ from ..scripting.script import Script as Script_Logic
 from ..physics.physics_body_2d import PhysicsBody2D as Physics_Logic
 from ..gameplay.health import Health as Health_Logic
 from ..gameplay.patrol2d import Patrol2D as Patrol_Logic
+from ..gameplay.state_machine import StateMachine as StateMachine_Logic
+from ..effects.particle_emitter_2d import ParticleEmitter2D as ParticleEmitter_Logic
 
 
 class MetaNodo(type):
@@ -37,8 +39,18 @@ class MetaNodo(type):
     def __new__(cls, name, bases, dct):
         list_bases = list(bases)
         final_config = {}
+        ready_methods = []
+        event_hooks = []
+        signal_hooks = []
 
-        for item in dct.values():
+        for method_name, item in dct.items():
+            if getattr(item, "_bp_on_ready", False):
+                ready_methods.append(method_name)
+            for event_name, once in getattr(item, "_bp_on_events", []):
+                event_hooks.append((method_name, event_name, bool(once)))
+            for signal_name, once in getattr(item, "_bp_on_signals", []):
+                signal_hooks.append((method_name, signal_name, bool(once)))
+
             if hasattr(item, "_type"):
                 final_config.update(copy.deepcopy(getattr(item, "_config", {})))
 
@@ -84,9 +96,18 @@ class MetaNodo(type):
                 elif tipo == "Patrol2D":
                     if Patrol_Logic not in list_bases:
                         list_bases.insert(0, Patrol_Logic)
+                elif tipo == "StateMachine":
+                    if StateMachine_Logic not in list_bases:
+                        list_bases.insert(0, StateMachine_Logic)
+                elif tipo == "ParticleEmitter2D":
+                    if ParticleEmitter_Logic not in list_bases:
+                        list_bases.insert(0, ParticleEmitter_Logic)
 
         new_class = super().__new__(cls, name, tuple(list_bases), dct)
         new_class._INTERNAL_CFG_TEMPLATE = final_config
+        new_class._BP_READY_METHODS = tuple(ready_methods)
+        new_class._BP_EVENT_HOOKS = tuple(event_hooks)
+        new_class._BP_SIGNAL_HOOKS = tuple(signal_hooks)
         return new_class
 
 
@@ -117,6 +138,8 @@ class Nodo2D(pygame.sprite.Sprite, metaclass=MetaNodo):
         self.z_index = int(cfg.get("z_index", 0))
         self._bp_order = instance.allocate_draw_order()
         self._signals = {}
+        self._signal_once = {}
+        self._tree_connections = []
         width = int(cfg.get("width", w))
         height = int(cfg.get("height", h))
 
@@ -144,6 +167,7 @@ class Nodo2D(pygame.sprite.Sprite, metaclass=MetaNodo):
 
         instance.nodes.add(self)
         instance.tree.add_child(self)
+        self._bind_declarative_hooks()
 
     def add_child(self, child):
         """Attach another node under this node for recursive update/draw."""
@@ -173,18 +197,62 @@ class Nodo2D(pygame.sprite.Sprite, metaclass=MetaNodo):
 
     def connect(self, signal_name, callback):
         """Connect a callback to this node signal."""
-        listeners = self._signals.setdefault(str(signal_name), [])
+        key = str(signal_name)
+        listeners = self._signals.setdefault(key, [])
         listeners.append(callback)
+        return callback
+
+    def connect_once(self, signal_name, callback):
+        key = str(signal_name)
+        self.connect(key, callback)
+        once_set = self._signal_once.setdefault(key, set())
+        once_set.add(callback)
+        return callback
 
     def disconnect(self, signal_name, callback):
-        listeners = self._signals.get(str(signal_name), [])
+        key = str(signal_name)
+        listeners = self._signals.get(key, [])
         if callback in listeners:
             listeners.remove(callback)
+        once_set = self._signal_once.get(key, set())
+        if callback in once_set:
+            once_set.remove(callback)
 
     def emit_signal(self, signal_name, *args, **kwargs):
         """Emit a local node signal."""
-        for callback in list(self._signals.get(str(signal_name), [])):
+        key = str(signal_name)
+        for callback in list(self._signals.get(key, [])):
             callback(*args, **kwargs)
+            if callback in self._signal_once.get(key, set()):
+                self.disconnect(key, callback)
+
+    def emit_signal_deferred(self, signal_name, *args, **kwargs):
+        instance.schedule(0.0, lambda: self.emit_signal(signal_name, *args, **kwargs))
+
+    def _bind_declarative_hooks(self):
+        for method_name in getattr(self.__class__, "_BP_READY_METHODS", ()):
+            callback = getattr(self, method_name, None)
+            if callable(callback):
+                callback()
+
+        for method_name, event_name, once in getattr(self.__class__, "_BP_EVENT_HOOKS", ()):
+            callback = getattr(self, method_name, None)
+            if not callable(callback):
+                continue
+            if once:
+                instance.tree.connect_once(event_name, callback)
+            else:
+                instance.tree.connect(event_name, callback)
+            self._tree_connections.append((event_name, callback))
+
+        for method_name, signal_name, once in getattr(self.__class__, "_BP_SIGNAL_HOOKS", ()):
+            callback = getattr(self, method_name, None)
+            if not callable(callback):
+                continue
+            if once:
+                self.connect_once(signal_name, callback)
+            else:
+                self.connect(signal_name, callback)
 
     def can_process(self):
         """Evaluate if this node should run update in the current frame."""
@@ -232,6 +300,9 @@ class Nodo2D(pygame.sprite.Sprite, metaclass=MetaNodo):
 
     def kill(self):
         """Keep hierarchy references consistent when node is removed."""
+        for event_name, callback in list(self._tree_connections):
+            instance.tree.disconnect(event_name, callback)
+        self._tree_connections.clear()
         for group_name in list(self._groups):
             instance.tree.remove_from_group(self, group_name)
         if self.parent is not None:

@@ -12,12 +12,36 @@ Customization Notes:
 """
 import pygame
 import sys
+from dataclasses import dataclass
 from .config import Config
 from ..utils.color import Color2d
 from ..resources.asset_cache import AssetCache
 from .input import Input
 from ..scene.tree import SceneTree
 from ..resources.loader import ResourceLoader
+
+
+@dataclass
+class _Task:
+    delay: float
+    callback: callable
+    repeat: bool = False
+    interval: float = 0.0
+    elapsed: float = 0.0
+    canceled: bool = False
+
+
+@dataclass
+class _Tween:
+    target: object
+    attr_path: str
+    start: float
+    end: float
+    duration: float
+    elapsed: float = 0.0
+    ease: str = "linear"
+    on_complete: callable = None
+    canceled: bool = False
 
 
 class GameLoop:
@@ -94,6 +118,9 @@ class GameLoop:
         events = pygame.event.get()
         Input.update(events)
         self._process_events(events)
+        self.engine._update_tasks()
+        self.engine._update_tweens()
+        self.engine.tree._flush_deferred_events()
 
         roots = self._root_nodes()
         for root in roots:
@@ -132,6 +159,8 @@ class _Engine:
         self.paused = False
         self.time_scale = 1.0
         self.camera = None
+        self._tasks = []
+        self._tweens = []
         self.assets = AssetCache()
         self.resources = ResourceLoader()
         self.tree = SceneTree(self)
@@ -188,6 +217,106 @@ class _Engine:
         except Exception:
             return
         self.time_scale = max(0.0, parsed)
+
+    def schedule(self, delay, callback, repeat=False, interval=None):
+        wait = max(0.0, float(delay))
+        rep = bool(repeat)
+        step = wait if interval is None else max(0.0, float(interval))
+        task = _Task(delay=wait, callback=callback, repeat=rep, interval=step)
+        self._tasks.append(task)
+        return task
+
+    def cancel_task(self, task):
+        if task is not None:
+            task.canceled = True
+
+    def _update_tasks(self):
+        if not self._tasks:
+            return
+        for task in list(self._tasks):
+            if task.canceled:
+                self._tasks.remove(task)
+                continue
+            task.elapsed += self.dt
+            if task.elapsed < task.delay:
+                continue
+            try:
+                task.callback()
+            except Exception:
+                pass
+            if task.repeat and not task.canceled:
+                task.elapsed = 0.0
+                task.delay = max(0.0, task.interval)
+            else:
+                self._tasks.remove(task)
+
+    def _resolve_attr(self, target, attr_path):
+        parts = str(attr_path).split(".")
+        current = target
+        for name in parts[:-1]:
+            current = getattr(current, name)
+        return current, parts[-1]
+
+    def _ease_value(self, t, ease):
+        x = max(0.0, min(1.0, float(t)))
+        if ease == "ease_in":
+            return x * x
+        if ease == "ease_out":
+            return 1.0 - (1.0 - x) * (1.0 - x)
+        if ease == "ease_in_out":
+            if x < 0.5:
+                return 2.0 * x * x
+            return 1.0 - ((-2.0 * x + 2.0) ** 2) / 2.0
+        return x
+
+    def tween(self, target, attr_path, to_value, duration, ease="linear", on_complete=None):
+        try:
+            owner, leaf = self._resolve_attr(target, attr_path)
+            start_val = float(getattr(owner, leaf))
+            end_val = float(to_value)
+            tween = _Tween(
+                target=target,
+                attr_path=str(attr_path),
+                start=start_val,
+                end=end_val,
+                duration=max(0.0001, float(duration)),
+                ease=str(ease),
+                on_complete=on_complete,
+            )
+            self._tweens.append(tween)
+            return tween
+        except Exception:
+            return None
+
+    def cancel_tween(self, tween):
+        if tween is not None:
+            tween.canceled = True
+
+    def _update_tweens(self):
+        if not self._tweens:
+            return
+        for tween in list(self._tweens):
+            if tween.canceled:
+                self._tweens.remove(tween)
+                continue
+            tween.elapsed += self.dt
+            ratio = tween.elapsed / tween.duration
+            weight = self._ease_value(ratio, tween.ease)
+            value = tween.start + (tween.end - tween.start) * weight
+            try:
+                owner, leaf = self._resolve_attr(tween.target, tween.attr_path)
+                setattr(owner, leaf, value)
+            except Exception:
+                tween.canceled = True
+                self._tweens.remove(tween)
+                continue
+            if tween.elapsed >= tween.duration:
+                if tween.on_complete:
+                    try:
+                        tween.on_complete()
+                    except Exception:
+                        pass
+                self._tweens.remove(tween)
 
 
 instance = _Engine()
